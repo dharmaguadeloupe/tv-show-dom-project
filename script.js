@@ -6,8 +6,9 @@ function setup() {
 }
 
 function episodeCard(allEpisodes) {
-  allEpisodes.forEach(episode =>{
-
+  allEpisodes.forEach(episode => {
+    const list = document.createElement("ul");
+    list.className = "card";
   });
 }
 

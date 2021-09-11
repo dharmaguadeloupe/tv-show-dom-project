@@ -1,3 +1,6 @@
+* {
+  margin: 0 auto;
+}
 #root {
   color: red;
   --font-size: base: 16px;
@@ -5,4 +8,6 @@
 
 header {
   background-color: #1a1c1d;
+  padding: 1%;
 }
+
