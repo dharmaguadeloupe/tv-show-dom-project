@@ -24,6 +24,11 @@ function makePageForEpisodes(episodeList) {
   /*Episode Image*/
   const image = episodesCard.appendChild(document.createElement("img"));
   image.src = `${episode.image.medium}`;
+
+  /*Episode Summary*/
+  const summary = episodesCard.appendChild(document.createElement("p"));
+  summary.setAttribute("class", "summary");
+  summary.innerHTML = `${episode.summary}`;
   });
   
 }
