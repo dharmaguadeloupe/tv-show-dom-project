@@ -1,12 +1,12 @@
 const allEpisodes = getAllEpisodes();
-  
+
 //You can edit ALL of the code here
 function setup() {
   makePageForEpisodes(allEpisodes);
 }
 
 function makePageForEpisodes(episodeList) {
-  const main = document.getElementById("root");
+  const main = document.getElementById("main");
 
   episodeList.forEach((episode) => {
 
@@ -23,6 +23,7 @@ function makePageForEpisodes(episodeList) {
 
   /*Episode Image*/
   const image = episodesCard.appendChild(document.createElement("img"));
+  image.setAttribute("class", "episodeImg");
   image.src = `${episode.image.medium}`;
 
   /*Episode Summary*/

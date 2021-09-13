@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TV Show Project | Dharma Guadeloupe (dharmaguadeloupe)</title>
     <link href="style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300&display=swap" rel="stylesheet">
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <script src="https://kit.fontawesome.com/dacd99bd9d.js" crossorigin="anonymous"></script>
   </head>
@@ -12,13 +15,14 @@
   <body>
     <header>
       <div id="headerCtn">
-        <img src="/images/td2.png" alt="tellydharma logo">
+        <!-- <img src="/images/tellydharma_cropped.png" alt="tellydharma logo" id="main-img"> -->
+        <img src="images/tellydharma_logo.png" id="logo" alt="tellydaharma logo">
         </div>
     </header>
-      <div id="root"></div>
+      <div id="main"></div>
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <footer>
-      All data originally retrieved from <a href="https://www.tvmaze.com/"><img src="images/tvm-header-logo.png"></a>
+      All data originally retrieved from <a href="https://www.tvmaze.com/" target="_blank"><img src="images/tvm-header-logo.png" id="tv-logo"></a>
     
     </footer>
     <script src="episodes.js"></script>
