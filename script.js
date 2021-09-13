@@ -21,7 +21,9 @@ function makePageForEpisodes(episodeList) {
   const episodeNumber = episode.number.toString().padStart(2, "0");
   episodeTitle.textContent = `${episode.name} - S${season}E${episodeNumber}`; 
 
-  
+  /*Episode Image*/
+  const image = episodesCard.appendChild(document.createElement("img"));
+  image.src = `${episode.image.medium}`;
   });
   
 }
