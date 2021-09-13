@@ -1,19 +1,28 @@
-  let allEpisodes = [];
+const allEpisodes = getAllEpisodes();
+  
 //You can edit ALL of the code here
 function setup() {
-  const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
 }
 
-function episodeCard(allEpisodes) {
-  allEpisodes.forEach(episode => {
-    const list = document.createElement("ul");
-    list.className = "card";
-  });
-}
-
 function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
+  const main = document.getElementById("root");
+
+  episodeList.forEach((episode) => {
+
+  /*Create Episode Card*/
+  const episodesCard = main.appendChild(document.createElement("div"));
+  episodesCard.setAttribute("class", "episodeCard");
+  
+  /*Episode Title*/
+  const episodeTitle = episodesCard.appendChild(document.createElement("h3"));
+  episodeTitle.setAttribute("class", "episodeTitle");
+  const season = episode.season.toString().padStart(2, "0");
+  const episodeNumber = episode.number.toString().padStart(2, "0");
+  episodeTitle.textContent = `${episode.name} - S${season}E${episodeNumber}`; 
+
+  
+  });
   
 }
 
