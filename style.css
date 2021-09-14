@@ -21,9 +21,6 @@
 }
 
 #headerCtn {
-  /* background-image: url(/images/tellydharma_logo.png); */
-  background-repeat: no-repeat;
-  background-size: 150px;;
   width: 100%;
   height: auto;
   padding: 1%;
@@ -33,9 +30,14 @@
   padding: 1%;
 }
 
+#totalNumOfEps {
+  color: var(--teal);
+  padding-left: 1%;
+  font-size: .95em;
+}
+
 @media only screen and (min-width : 640px) {
   #headerCtn {
-    background-image: url(/images/tellydharma_cropped.png);
     width: 100%;
   }
 }
@@ -51,7 +53,7 @@
 
 .episodeTitle {
   color: var(--darkOrange);
-  padding: 3%;
+  padding: 1%;
   border: 1px solid var(--yellow);
   border-radius: 50px;
 }
@@ -65,5 +67,10 @@ footer {
 }
 
 #tv-logo {
-  width: 50px;
+  width: 40px;
+}
+
+#searchBar {
+  display: inline-block;
+  float: right;
 }

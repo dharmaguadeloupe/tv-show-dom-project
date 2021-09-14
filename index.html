@@ -9,15 +9,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300&display=swap" rel="stylesheet">
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <script src="https://kit.fontawesome.com/dacd99bd9d.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
     <header>
       <div id="headerCtn">
         <!-- <img src="/images/tellydharma_cropped.png" alt="tellydharma logo" id="main-img"> -->
-        <img src="images/tellydharma_logo.png" id="logo" alt="tellydaharma logo">
+        <img src="images/tellydharma_logo.png" id="logo" alt="tellydharma logo">
+        <div id="SearchCtn">
+          <input
+          type="text" 
+          name="search"
+          id="searchBar"
+          placeholder="Search"
+          />
         </div>
+      </div>
+      <h2 id="totalNumOfEps"></h2>
     </header>
       <div id="main"></div>
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
@@ -32,3 +40,10 @@
     
   </body>
 </html>
+<!-- Pseudo Code
+Add a "live" search input:
+Only episodes whose summary OR name contains the search term should be displayed
+The search should be case-insensitive
+The display should update immediately after each keystroke changes the input.
+Display how many episodes match the current search
+If the search box is cleared, all episodes should be shown. -->
