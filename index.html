@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,"
+                          minimum-scale=1.0, maximum-scale=1.0, 
+                          user-scalable=no, target-densitydpi=device-dpi"> />
     <title>TV Show Project | Dharma Guadeloupe (dharmaguadeloupe)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +17,7 @@
     <header>
       <div id="headerCtn">
         <!-- <img src="/images/tellydharma_cropped.png" alt="tellydharma logo" id="main-img"> -->
-        <img src="images/tellydharma_logo.png" id="logo" alt="tellydharma logo">
+        
         <div id="SearchCtn">
           <input
           type="text" 
@@ -23,11 +25,16 @@
           id="searchBar"
           placeholder="Search"
           />
+          
         </div>
+        
       </div>
-      <h2 id="totalNumOfEps"></h2>
+      
     </header>
-      <div id="main"></div>
+    
+      <div id="main">
+        <h2 id="totalNumOfEps"></h2>
+      </div>
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <footer>
       All data originally retrieved from <a href="https://www.tvmaze.com/" target="_blank"><img src="images/tvm-header-logo.png" id="tv-logo"></a>
@@ -40,10 +47,3 @@
     
   </body>
 </html>
-<!-- Pseudo Code
-Add a "live" search input:
-Only episodes whose summary OR name contains the search term should be displayed
-The search should be case-insensitive
-The display should update immediately after each keystroke changes the input.
-Display how many episodes match the current search
-If the search box is cleared, all episodes should be shown. -->
