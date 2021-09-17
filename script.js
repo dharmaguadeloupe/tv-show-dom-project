@@ -1,45 +1,55 @@
-const allEpisodes = getAllEpisodes();
-console.log(allEpisodes);
-//You can edit ALL of the code here
-function setup() {
-  makePageForEpisodes(allEpisodes);
-  episodeSelector(allEpisodes);
+// Declare variables
+const renderArea = document.getElementById("main");
+var allEpisodes = [];
+
+// Initialize Page
+function init(){
+	allEpisodes = getAllEpisodes();
+	makeEpisodeCard(allEpisodes);
+	episodeSelector(allEpisodes);
 }
 
-function makePageForEpisodes(episodeList) {
-  const main = document.getElementById("main");
-  main.innerHTML = "";
-  const total = document.getElementById("totalNumOfEps");
-  total.innerText = `Displaying ${episodeList.length}/${allEpisodes.length} episode(s)`;
-  episodeList.forEach((episode) => {
+// Generate DIV's containing the episode data
+// ------------------------------------------
+// Parse through the full episode list using a forEach loop; splitting the data per 'episode' into a new array.
+// Then, for each of those episodes, we pull out the data we need, construct a HTML div (the card) and dynamically insert the data into it.
+// Finally, we draw each of those 'cards' to the screen and let the CSS styling handle their appearance.
 
-    /*Create Episode Card*/
-    const episodeCard = createEpisodeCard(episode);
-    main.appendChild(episodeCard);
+const makeEpisodeCard = (array) => {
+  renderArea.innerHTML = "";
+
+	const wrapperCtn = document.getElementById("wrapper");
+
+  const total = wrapperCtn.appendChild(document.getElementById("totalNumOfEps"));
+  total.innerText = `Displaying ${array.length}/${allEpisodes.length} episode(s)`;
+
+  array.forEach((episode) => {
+
+    let { name, number, season, image, summary } = episode;
+    number < 10 ? (number = `0${number}`) : (number = `${number}`);
+    season < 10 ? (season = `0${season}`) : (season = `${season}`);
+
+    var episodeCard = document.createElement("div");
+    episodeCard.innerHTML = `
+        <div class="movieData">
+          <div class="episodeInfo">SEASON: ${season}  -  EPISODE: ${number}</div>
+            <img
+              src="${image.medium}"
+              alt="${name}"
+            />
+         <div class="movieInfo">
+              <h2>${name}</h2>
+              </div>
+         <div class="movieSummary">
+              <h2>Episode Summary</h2>
+              <p>${summary}</p>
+         </div>
+       </div>
+
+        `;
+    renderArea.appendChild(episodeCard);
   });
 };
-
-function createEpisodeCard(episode) {
-  const episodesCard = document.createElement("div");
-  episodesCard.setAttribute("class", "episodeCard");
-  
-  /*Episode Title*/
-  const episodeTitle = episodesCard.appendChild(document.createElement("h3"));
-  episodeTitle.setAttribute("class", "episodeTitle");
-  const [episodeName, season, episodeNumber] = episodeCode(episode);
-  episodeTitle.textContent = `${episodeName} - S${season}E${episodeNumber}`; 
-
-  /*Episode Image*/
-  const image = episodesCard.appendChild(document.createElement("img"));
-  image.setAttribute("class", "episodeImg");
-  image.src = `${episode.image.medium}`;
-  
-  /*Episode Summary*/
-  const summaryCtn = episodesCard.appendChild(document.createElement("div"));
-  summaryCtn.innerHTML = `${episode.summary}`;
-
-  return episodesCard;
-}
 
 /*Episode Code*/
 function episodeCode(episode) {
@@ -50,7 +60,7 @@ function episodeCode(episode) {
 };
 
 /*Search bar*/
-const searchBar = document.getElementById("searchBar");
+const searchBar = document.getElementById("searchField");
 searchBar.addEventListener("input", filterSearch);
 
 /*Filter*/
@@ -63,11 +73,10 @@ function filterSearch(event) {
       episode.summary.toLowerCase().includes(userInput)
     );
   });
-  console.log(filteredResults);
-  makePageForEpisodes(filteredResults);
+  makeEpisodeCard(filteredResults);
 }
 
-const searchBox = document.getElementById("searchBox");
+const searchBox = document.getElementById("searchForm");
 const select = searchBox.appendChild(document.createElement("select"));
 select.setAttribute("id", "selectorDropdown");
 
@@ -80,31 +89,27 @@ function episodeSelector(episodeList) {
   defaultValue.setAttribute("value", "DEFAULT");
   defaultValue.innerText = "Show all episodes";
   episodeList.forEach((episode) => {
-    
+
     const [episodeName, season, episodeNumber] = episodeCode(episode);
     const episodeOption = select.appendChild(document.createElement("option"));
     episodeOption.setAttribute("value", `${episodeName}`);
     episodeOption.innerText =`S${season}E${episodeNumber} - ${episodeName}`;
   });
 }
-
+/*Filter */
 function filterSelect() {
   const userValue = document.querySelector("select");
   let selectedValue = userValue.value;
   if(selectedValue === "DEFAULT") {
-    return makePageForEpisodes(allEpisodes);
+    return makeEpisodeCard(allEpisodes);
   }
   const filterUserInputValue = allEpisodes.filter((episode) => {
     return episode.name.includes(selectedValue);
   });
-  makePageForEpisodes(filterUserInputValue);
+  makeEpisodeCard(filterUserInputValue);
 }
-window.onload = setup;
 
-/* <!-- Pseudo Code
-Add a "live" search input:
-Only episodes whose summary OR name contains the search term should be displayed
-The search should be case-insensitive
-The display should update immediately after each keystroke changes the input.
-Display how many episodes match the current search
-If the search box is cleared, all episodes should be shown. --> */
+// When the page loads, start the script.
+// --------------------------------------
+
+window.onload = init;
