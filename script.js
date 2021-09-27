@@ -1,21 +1,19 @@
 // Declare variables
 const renderArea = document.getElementById("main");
 const api = "https://api.tvmaze.com/shows/82/episodes";
-var allEpisodes = [];
+let allEpisodes = [];
 
 // Initialize Page
-function init(){
+function init() {
   fetch(api)
     .then((response) => response.json())
-    .then((allEpisodes) => makeEpisodeCard(allEpisodes));
-	episodeSelector(allEpisodes);
-}
+    .then((episodeData) => {
+      allEpisodes = episodeData;
+      makeEpisodeCard(episodeData);
+      episodeSelector(episodeData);
+    });
+};
 
-// Generate DIV's containing the episode data
-// ------------------------------------------
-// Parse through the full episode list using a forEach loop; splitting the data per 'episode' into a new array.
-// Then, for each of those episodes, we pull out the data we need, construct a HTML div (the card) and dynamically insert the data into it.
-// Finally, we draw each of those 'cards' to the screen and let the CSS styling handle their appearance.
 
 const makeEpisodeCard = (array) => {
   renderArea.innerHTML = "";
@@ -98,6 +96,12 @@ function episodeSelector(episodeList) {
     episodeOption.innerText =`S${season}E${episodeNumber} - ${episodeName}`;
   });
 }
+
+ /*Show selector*/
+/*function selectShow(allShows) {
+  const defaultValue = select.appendChild
+}
+ */
 /*Filter */
 function filterSelect() {
   const userValue = document.querySelector("select");
@@ -110,6 +114,7 @@ function filterSelect() {
   });
   makeEpisodeCard(filterUserInputValue);
 }
+
 
 // When the page loads, start the script.
 // --------------------------------------
