@@ -1,11 +1,13 @@
 // Declare variables
 const renderArea = document.getElementById("main");
+const api = "https://api.tvmaze.com/shows/82/episodes";
 var allEpisodes = [];
 
 // Initialize Page
 function init(){
-	allEpisodes = getAllEpisodes();
-	makeEpisodeCard(allEpisodes);
+  fetch(api)
+    .then((response) => response.json())
+    .then((allEpisodes) => makeEpisodeCard(allEpisodes));
 	episodeSelector(allEpisodes);
 }
 
@@ -29,7 +31,7 @@ const makeEpisodeCard = (array) => {
     number < 10 ? (number = `0${number}`) : (number = `${number}`);
     season < 10 ? (season = `0${season}`) : (season = `${season}`);
 
-    var episodeCard = document.createElement("div");
+    let episodeCard = document.createElement("div");
     episodeCard.innerHTML = `
         <div class="movieData">
           <div class="episodeInfo">SEASON: ${season}  -  EPISODE: ${number}</div>
