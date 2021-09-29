@@ -1,10 +1,26 @@
+import makeEpisodeCard from './Episodes/episodeCard.js';
+import makeShowCard from './Shows/showCard.js'; 
 // Declare variables
-const renderArea = document.getElementById("main");
+
+//const renderArea = document.getElementById("main");
 const api = "https://api.tvmaze.com/shows/82/episodes";
+let allShows = [];
 let allEpisodes = [];
+let url = "";
+
+
 
 // Initialize Page
 function init() {
+ /*  makeShowCard();
+ let getShows = getAllShows(); */
+  fetchEpisodes();
+  fetchShows();
+  console.log(getEpisodeList(82));
+};
+
+/*fetch Episode Data*/
+function fetchEpisodes() {
   fetch(api)
     .then((response) => response.json())
     .then((episodeData) => {
@@ -12,44 +28,44 @@ function init() {
       makeEpisodeCard(episodeData);
       episodeSelector(episodeData);
     });
-};
+}
 
+function fetchShows() {
+  const url = "https://api.tvmaze.com/shows";
+  fetch(url)
+    .then((response) => response.json())
+    .then((showData) => {
+      allShows = showData;
+      populateShowSelector(showData);
+      makeShowCard(showData, selectShow);
+    });
+}  
 
-const makeEpisodeCard = (array) => {
-  renderArea.innerHTML = "";
+function getShowInfo(id) {
+  const url = "https://api.tvmaze.com/shows/" + id;
+  fetch(url)
+    .then((response) => response.json())
+    .then((showInfo) => {
+      console.info(showInfo);
+    });
+}
 
-	const wrapperCtn = document.getElementById("wrapper");
+function getEpisodeList(showId) {
+  const url = "https://api.tvmaze.com/shows/" + showId + "/episodes";
+  return fetch(url)
+    .then((response) => response.json())
+    .then((episodeInfo) => {
+      return episodeInfo;
+    });
+}
 
-  const total = wrapperCtn.appendChild(document.getElementById("totalNumOfEps"));
-  total.innerText = `Displaying ${array.length}/${allEpisodes.length} episode(s)`;
+function selectShow(showId) {
+  getEpisodeList(showId)
+    .then((episodes) => {
+      makeEpisodeCard(episodes);
+    });
+}
 
-  array.forEach((episode) => {
-
-    let { name, number, season, image, summary } = episode;
-    number < 10 ? (number = `0${number}`) : (number = `${number}`);
-    season < 10 ? (season = `0${season}`) : (season = `${season}`);
-
-    let episodeCard = document.createElement("div");
-    episodeCard.innerHTML = `
-        <div class="movieData">
-          <div class="episodeInfo">SEASON: ${season}  -  EPISODE: ${number}</div>
-            <img
-              src="${image.medium}"
-              alt="${name}"
-            />
-         <div class="movieInfo">
-              <h2>${name}</h2>
-              </div>
-         <div class="movieSummary">
-              <h2>Episode Summary</h2>
-              <p>${summary}</p>
-         </div>
-       </div>
-
-        `;
-    renderArea.appendChild(episodeCard);
-  });
-};
 
 /*Episode Code*/
 function episodeCode(episode) {
@@ -63,7 +79,7 @@ function episodeCode(episode) {
 const searchBar = document.getElementById("searchField");
 searchBar.addEventListener("input", filterSearch);
 
-/*Filter*/
+/*Filter search for episodes*/
 function filterSearch(event) {
   event.preventDefault();
   let userInput = event.target.value.toLowerCase();
@@ -76,11 +92,12 @@ function filterSearch(event) {
   makeEpisodeCard(filteredResults);
 }
 
+/*Search for episode*/
 const searchBox = document.getElementById("searchForm");
 const select = searchBox.appendChild(document.createElement("select"));
 select.setAttribute("id", "selectorDropdown");
 
-/*Function for episode*/
+/*Event listener for episode select*/
 select.addEventListener("change", filterSelect);
 
 /*Episode selector*/
@@ -97,12 +114,7 @@ function episodeSelector(episodeList) {
   });
 }
 
- /*Show selector*/
-/*function selectShow(allShows) {
-  const defaultValue = select.appendChild
-}
- */
-/*Filter */
+/*Filter select for episodes*/
 function filterSelect() {
   const userValue = document.querySelector("select");
   let selectedValue = userValue.value;
@@ -115,6 +127,28 @@ function filterSelect() {
   makeEpisodeCard(filterUserInputValue);
 }
 
+/*Search for Show*/
+const searchShowBar = document.getElementById("searchForm");
+const showSelectBar = searchShowBar.appendChild(document.createElement("select"));
+showSelectBar.setAttribute("id", "showSelectorDropdown");
+
+ /*Show selector*/
+function populateShowSelector(showData) {
+  const defaultShowValue = showSelectBar.appendChild(document.createElement("option"));
+  defaultShowValue.setAttribute("value", "DEFAULT");
+  defaultShowValue.innerText = "Select Show";
+
+  showData.forEach(show => {
+    const showValue = showSelectBar.appendChild(document.createElement("option"));
+    showValue.setAttribute("value", show.id);
+    showValue.innerText = show.name;
+  });
+};
+
+
+showSelectBar.addEventListener("change", (event) => {
+ selectShow(event.target.value);
+});
 
 // When the page loads, start the script.
 // --------------------------------------

@@ -61,7 +61,8 @@ header {
 }
 
 .searchField,
-#selectorDropdown {
+#selectorDropdown,
+#showSelectorDropdown {
   font-size: 1rem;
   font-family: 'Titillium Web', sans-serif;
   font-weight:300;
@@ -82,7 +83,8 @@ header {
   color: var(--orange);
 }
 
-#selectorDropdown {
+#selectorDropdown,
+#showSelectorDropdown {
   color: var(--logoOrange);
 }
 /* Use flexbox to control the layout of the rendered cards */
@@ -125,7 +127,7 @@ header {
   justify-content: center;
   padding: 0.5rem 1rem 1rem;
   letter-spacing: 0.5px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .movieInfo H2 {
