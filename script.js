@@ -21,10 +21,11 @@ function fetchEpisodes(showId) {
       allEpisodes = episodeData;
       makeEpisodeCards(episodeData);
       episodeSelector(episodeData);
-      getShowInfo(episodeData);
+      //getShowInfo(episodeData);
     });
 }
 
+/*Fetching shows*/
 function fetchShows() {
   const url = "https://api.tvmaze.com/shows";
   fetch(url)
@@ -53,11 +54,13 @@ async function getEpisodeList(showId) {
       return episodeInfo;
     });
 }
-
+/*Show dropdown selector menu*/
 function selectShow(showId) {
   getEpisodeList(showId)
     .then((episodes) => {
-      makeEpisodeCards(episodes, showId);
+      makeEpisodeCards(episodes);
+      allEpisodes = episodes;
+      episodeSelector(episodes);
     });
 }
 
@@ -80,7 +83,8 @@ function filterSearch(event) {
   let filteredResults = allEpisodes.filter((episode) => {
     return (
       episode.name.toLowerCase().includes(userInput) ||
-      episode.summary.toLowerCase().includes(userInput)
+      episode.summary.toLowerCase().includes(userInput) ||
+      episode.genres.toLowerCase().includes(userInput)
     );
   });
   makeEpisodeCards(filteredResults);
@@ -96,6 +100,8 @@ select.addEventListener("change", filterSelect);
 
 /*Episode selector*/
 function episodeSelector(episodeList) {
+  console.log("data: " + episodeList);
+  select.innerHTML = "";
   const defaultValue = select.appendChild(document.createElement("option"));
   defaultValue.setAttribute("value", "DEFAULT");
   defaultValue.innerText = "Show all episodes";
@@ -103,6 +109,8 @@ function episodeSelector(episodeList) {
 
     const [episodeName, season, episodeNumber] = episodeCode(episode);
     const episodeOption = select.appendChild(document.createElement("option"));
+    /* episodeOption.value = `https://api.tvmaze.com/shows/${episode.url}/episodes`;
+    episodeOption.url = episode.url; */
     episodeOption.setAttribute("value", `${episodeName}`);
     episodeOption.innerText =`S${season}E${episodeNumber} - ${episodeName}`;
   });
@@ -142,9 +150,9 @@ function populateShowSelector(showData) {
 
   alphabeticalShowList.forEach(show => {
     const showValue = showSelectBar.appendChild(document.createElement("option"));
-    showValue.value = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    showValue.id = `${show.id}`;
-    //showValue.setAttribute("value", show.id);
+    /* showValue.value = `https://api.tvmaze.com/shows/${show.id}/episodes`;
+    showValue.id = `${show.id}`; */
+    showValue.setAttribute("value", show.id);
     showValue.innerText = show.name;
   });
 };
