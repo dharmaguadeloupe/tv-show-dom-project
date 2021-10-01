@@ -1,32 +1,27 @@
-import makeEpisodeCard from './Episodes/episodeCard.js';
-import makeShowCard from './Shows/showCard.js'; 
-// Declare variables
+import makeEpisodeCards from "./Episodes/makeEpisodeCards.js";
+import makeShowCards from "./Shows/makeShowCards.js";
 
-//const renderArea = document.getElementById("main");
-const api = "https://api.tvmaze.com/shows/82/episodes";
+// Declare variables
 let allShows = [];
 let allEpisodes = [];
 let url = "";
-
-
-
+//const api = "https://api.tvmaze.com/shows/82/episodes"
 // Initialize Page
 function init() {
- /*  makeShowCard();
- let getShows = getAllShows(); */
   fetchEpisodes();
   fetchShows();
-  console.log(getEpisodeList(82));
+  
 };
 
 /*fetch Episode Data*/
-function fetchEpisodes() {
-  fetch(api)
+function fetchEpisodes(showId) {
+  fetch("https://api.tvmaze.com/shows/82/episodes", showId)
     .then((response) => response.json())
     .then((episodeData) => {
       allEpisodes = episodeData;
-      makeEpisodeCard(episodeData);
+      makeEpisodeCards(episodeData);
       episodeSelector(episodeData);
+      getShowInfo(episodeData);
     });
 }
 
@@ -37,7 +32,7 @@ function fetchShows() {
     .then((showData) => {
       allShows = showData;
       populateShowSelector(showData);
-      makeShowCard(showData, selectShow);
+      makeShowCards(showData, selectShow);
     });
 }  
 
@@ -46,11 +41,11 @@ function getShowInfo(id) {
   fetch(url)
     .then((response) => response.json())
     .then((showInfo) => {
-      console.info(showInfo);
+      updateSelectShowMenu(showInfo);
     });
 }
 
-function getEpisodeList(showId) {
+async function getEpisodeList(showId) {
   const url = "https://api.tvmaze.com/shows/" + showId + "/episodes";
   return fetch(url)
     .then((response) => response.json())
@@ -62,17 +57,16 @@ function getEpisodeList(showId) {
 function selectShow(showId) {
   getEpisodeList(showId)
     .then((episodes) => {
-      makeEpisodeCard(episodes);
+      makeEpisodeCards(episodes, showId);
     });
 }
-
 
 /*Episode Code*/
 function episodeCode(episode) {
   const episodeName = episode.name;
   const season = episode.season.toString().padStart(2, "0");
   const episodeNumber = episode.number.toString().padStart(2, "0");
-  return [episodeName, season, episodeNumber];
+  return [episodeName, season, episodeNumber ] ;
 };
 
 /*Search bar*/
@@ -89,7 +83,7 @@ function filterSearch(event) {
       episode.summary.toLowerCase().includes(userInput)
     );
   });
-  makeEpisodeCard(filteredResults);
+  makeEpisodeCards(filteredResults);
 }
 
 /*Search for episode*/
@@ -119,12 +113,17 @@ function filterSelect() {
   const userValue = document.querySelector("select");
   let selectedValue = userValue.value;
   if(selectedValue === "DEFAULT") {
-    return makeEpisodeCard(allEpisodes);
+    return makeEpisodeCards(allEpisodes);
   }
   const filterUserInputValue = allEpisodes.filter((episode) => {
     return episode.name.includes(selectedValue);
   });
-  makeEpisodeCard(filterUserInputValue);
+  makeEpisodeCards(filterUserInputValue);
+}
+
+function updateSelectShowMenu(showId) {
+  const option = document.getElementById(showId);
+  option.setAttribute("selected", true);
 }
 
 /*Search for Show*/
@@ -138,13 +137,17 @@ function populateShowSelector(showData) {
   defaultShowValue.setAttribute("value", "DEFAULT");
   defaultShowValue.innerText = "Select Show";
 
-  showData.forEach(show => {
+  const alphabeticalShowList = showData.sort((a, b) => 
+  a.name.localeCompare(b.name));
+
+  alphabeticalShowList.forEach(show => {
     const showValue = showSelectBar.appendChild(document.createElement("option"));
-    showValue.setAttribute("value", show.id);
+    showValue.value = `https://api.tvmaze.com/shows/${show.id}/episodes`;
+    showValue.id = `${show.id}`;
+    //showValue.setAttribute("value", show.id);
     showValue.innerText = show.name;
   });
 };
-
 
 showSelectBar.addEventListener("change", (event) => {
  selectShow(event.target.value);

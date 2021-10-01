@@ -1,4 +1,4 @@
-export default function makeEpisodeCard (array) {
+export default function makeEpisodeCards (array) {
   const renderArea = document.getElementById("main");
   let allEpisodes = [];
   renderArea.innerHTML = "";
