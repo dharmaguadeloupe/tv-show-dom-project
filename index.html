@@ -1,21 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-  <body>
-    <div id="root">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0,"/>
+<title>TV Show Project | Dharma Guadeloupe (dharmaguadeloupe)</title>
+<link href="style.css" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+	<header>
+		<div id="headerContainer">
+			<div id="logo">
+                <a href="index.html"><img src="/images/tellydharma_logo.png" alt="tellydharma logo" id="main-img01"></a>
+                <a href="index.html" ><img src="/images/tellydharma_cropped.png" alt="tellydharma logo" id="main-img02"></a>
+            </div>
+			<div id="searchBox">
+                <form id="searchForm">
+                	<input type="text" id="searchField" class="searchField" placeholder="Search..." />
+                </form>
+        	</div>
+		</div>
+		<div id="searchCtn"></div>
+    </header>
+		<div id="wrapper">
+      <h2 id="totalNumOfEps"></h2>
     </div>
+    <!-- ID="main": The DIV dedicated to rendering the script generated episode cards. -->
+	<div id="main"></div>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+	<!-- Footer: Credits TVmaze, displays TVmaze logo and hyperlink. -->
+    <footer>
+      All data originally retrieved from<a href="https://www.tvmaze.com/" target="_blank"><img src="images/tvm-header-logo.png" id="tv-logo"></a>
+    </footer>
+</body>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
+<!-- Loads a provided function called getAllShows() which returns all shows --> 
+<script src="shows.js"></script>
+<!-- Loads a provided function called getAllEpisodes() which returns all episodes --> 
+<!-- <script src="episodes.js"></script> -->
+<!-- Loads YOUR javascript code -->
+<script src="script.js" type="module"></script>
 </html>

@@ -1,3 +1,200 @@
-#root {
-  color: red;
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;600;700&display=swap');
+
+/* Establish some initial colour variables */
+:root {
+  --slate: #1a1c1d;
+  --font-size: base: 16px;
+  --teal: #2a9d8f;
+  --orange: #f4a261;
+  --darkOrange: #e76f51;
+  --logoOrange: #c76306;
+  --yellow: #e9c46a;
+  --white: #ffffff;
+}
+
+/* Establish page-generic colour and typeface */
+* {
+  margin: 0;
+  background-color: var(--slate);
+  font-family: 'Titillium Web', sans-serif;
+}
+
+/* Use flexbox to structure the page header area */
+header {
+  padding: 0%;
+  display: flex;
+  flex: 50%;
+  justify-content: flex-end;
+  background-color: var(--secondary-color);
+  background-repeat: no-repeat;
+  min-height:120px;
+}
+
+#headerContainer{
+	width:100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+#logo {
+  padding: 1%;
+  flex: 1;
+  display: block;
+}
+
+#main-img01{
+	display: block;
+}
+#main-img02{
+	display: none;
+}
+
+#totalNumOfEps {
+  color: var(--teal);
+  padding-left: 1%;
+  font-size: .95em;
+}
+
+#searchBox{
+	margin-top:55px;
+	margin-right: 30px;
+}
+
+.searchField,
+#selectorDropdown,
+#showSelectorDropdown {
+  font-size: 1rem;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight:300;
+  margin: 0;
+  background-color: #000000;
+  border: 2px solid var(--logoOrange);
+  color: #fff;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.searchField::placeholder {
+  color: var(--logoOrange);
+}
+
+.searchField:focus {
+  outline: none;
+  color: var(--orange);
+}
+
+#selectorDropdown,
+#showSelectorDropdown {
+  color: var(--logoOrange);
+}
+/* Use flexbox to control the layout of the rendered cards */
+
+#main {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	color: var(--orange);
+}
+
+/* Styling the dynamically generated cards */
+
+.movieData {
+  width: 300px;
+  min-height: 350px;
+  margin: 1rem;
+  background-color: var(--slate);
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.movieData img {
+  width: 100%;
+}
+
+.movieInfo {
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem 1rem;
+  letter-spacing: 0.5px;
+}
+
+.episodeInfo {
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem 1rem;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+.movieInfo H2 {
+  margin: 0 auto;
+  color: var(--orange);
+}
+
+/* Styling & Animating the text display area on hover */
+
+.movieSummary {
+  background-color: var(--slate);
+  padding: 2rem;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  max-height: 100%;
+  transform: translateY(100%);
+  transition: transform 0.5s ease-out;
+}
+
+.movieSummary p {
+  font-size: 0.8rem;
+  color: var(--white);
+}
+
+.movieData:hover .movieSummary {
+  transform: translateY(0);
+}
+
+.episodeCard {
+  width: 90%;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding: 2%;
+}
+
+.episodeTitle {
+  color: var(--white);
+  padding: 1%;
+  border: 1px solid var(--yellow);
+  border-radius: 50px;
+}
+
+.episodeImg {
+  padding: 3%;
+}
+
+#tv-logo {
+  margin-left: 1%;
+  width: 50px;
+}
+
+footer {
+  margin-left: 1%;
+  color: var(--yellow);
+}
+
+/* Swapping out the logo on smaller devices */
+
+@media only screen and (min-width : 480px) {
+	#main-img01{
+		display: none;
+	}
+	#main-img02{
+		display: block;
+	}
 }
